@@ -128,7 +128,7 @@ const appp = createApp({
           this.contagemRegressiva();
           this.cronometro.ativo = true;
         }
-      }, 1200);
+      }, 1400);
     },
     contagemProgressiva() {
 
