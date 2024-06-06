@@ -41,11 +41,15 @@
         <section v-show="transmisao.overlay_visibilidade" class="merchan">
             <img class="carrosel" v-bind:src="transmisao.fundo">
         </section>
+        <section v-show="transmisao.logo_visibilidade">
+            <img class="logo"  v-bind:src="transmisao.logo" :style="{ left: transmisao.logo_x + 'vw', top: transmisao.logo_y + 'vh',zoom: transmisao.logo_z + '%'}">
+        </section>
         <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
             :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
             <img class="rotativo_img" :key="carrosel.imagemAtual" v-bind:src="carrosel.imagemAtual">
         </section>
         <section v-if="jogo.idjogo">
+            
         </section>
         <section v-else="jogo.idjogo" class="merchan">
             <h1>AGUARDADO CONEXÃO COM O TRANSMISSOR..</h1>

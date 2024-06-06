@@ -1,0 +1,47 @@
+<section class="section card1">
+    <div class="linha">
+        <h4>Logo</h4>
+        <label class="switch">
+            <input type="checkbox" v-model="transmisao.logo_visibilidade"
+                v-on:change="logo_visibilidade_tx">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#logo_collapseOne" aria-expanded="true" aria-controls="logo_collapseOne">
+                    Posição
+                </button>
+            </h2>
+            <div id="logo_collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="linha" style="justify-content: end;">
+                        
+                    </div>
+                    <div class="coluna">
+                        <small>Largura</small>
+                        <div class="PB-range-slider-div">
+                            <input type="range" min="0" max="1000" v-model="transmisao.logo_x"
+                                class="PB-range-slider"  v-on:input="logo_x_tx">
+                            <small class="PB-range-slidervalue">{{transmisao.logo_x}}%</small>
+                        </div>
+                        <small>Altura</small>
+                        <div class="PB-range-slider-div">
+                            <input type="range" min="0" max="150" v-model="transmisao.logo_y"
+                                class="PB-range-slider" v-on:input="logo_y_tx">
+                            <small class="PB-range-slidervalue">{{transmisao.logo_y}}%</small>
+                        </div>
+                        <small>Tamanho</small>
+                        <div class="PB-range-slider-div">
+                            <input type="range" min="0" max="100" v-model="transmisao.logo_z"
+                                class="PB-range-slider" v-on:input="logo_z_tx">
+                            <small class="PB-range-slidervalue">{{transmisao.logo_z}}%</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

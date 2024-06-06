@@ -16,7 +16,11 @@
     padding: 0;
     margin: 0;
 }
-
+.logo{
+    position: absolute;
+    z-index: 0;
+    animation: slide-up 0.5s ease;
+}
 .fundo {
     position: absolute;
     /* nav-index: 0; */

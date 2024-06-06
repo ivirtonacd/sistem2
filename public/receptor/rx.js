@@ -25,12 +25,14 @@ const appp = createApp({
       transmisao: {
         id_placar: 0,
         id_transmissao: 0,
+        logo_visibilidade:0,
         placar_visibilidade: null,
         placar_x: 0,
         placar_y: 0,
         placar_z: 0,
         idjogo: 0,
         nome: '',
+        fundo:'',
         id_rotativo: 0,
         rotativo_visibilidade: 0,
         rotativo_x: 0,
@@ -79,6 +81,7 @@ const appp = createApp({
           this.transmisao = menssagem.transmissao
           this.transmisao.placar_visibilidade = menssagem.transmissao.placar_visibilidade === "true" ? true : false
           this.transmisao.rotativo_visibilidade = menssagem.transmissao.rotativo_visibilidade === "true" ? true : false
+          this.transmisao.logo_visibilidade = menssagem.transmissao.logo_visibilidade === "true" ? true : false
           this.transmisao.overlay_visibilidade = menssagem.transmissao.overlay_visibilidade === "true" ? true : false
           this.transmisao.icone = menssagem.transmissao.icone === "true" ? true : false
           this.jogo = menssagem.jogo

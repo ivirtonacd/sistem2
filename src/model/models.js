@@ -379,6 +379,47 @@ const Overlay = database.define('Overlay', {
     tableName: 'Overlay',
     timestamps: false
 });
+const Logo = database.define('Logo', {
+    id_logo: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    logo_visibilidade: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    logo: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    id_transmissao: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Transmissao',
+            key: 'id_transmissao',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        }
+    },
+    logo_x: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    logo_y: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    logo_z: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+}, {
+    tableName: 'Logo',
+    timestamps: false
+});
+
 module.exports = {
     Transmissao,
     Time,
@@ -391,5 +432,6 @@ module.exports = {
     Imagem,
     Merchan,
     Overlay,
-    Categoria
+    Categoria,
+    Logo
 }

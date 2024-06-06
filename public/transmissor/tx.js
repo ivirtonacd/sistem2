@@ -189,7 +189,19 @@ const appp = createApp({
     },
     overlay_imagem_tx(fundo) {
       enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_overlay", this.transmisao.id_overlay, "fundo", fundo)
-    }
+    },
+    logo_visibilidade_tx() {
+      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_visibilidade", this.transmisao.logo_visibilidade)
+    },
+    logo_x_tx() {
+      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_x", this.transmisao.logo_x)
+    },
+    logo_y_tx() {
+      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_y", this.transmisao.logo_y)
+    },
+    logo_z_tx() {
+      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_z", this.transmisao.logo_z)
+    },
   },
 }).mount('#app')
 setTimeout(() => {

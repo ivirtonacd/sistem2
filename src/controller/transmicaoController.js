@@ -1,8 +1,8 @@
-const { Transmissao, Rotativo, Placar, Jogo, Cronometro, Merchan, Overlay } = require("../model/models")
+const { Transmissao, Rotativo, Placar, Jogo, Cronometro, Merchan, Overlay, Logo } = require("../model/models")
 const database = require("../config/database");
 const trasmisaoController = {
     getTransmisao: async function (id_transmissao) {
-        const data = await database.query("select * from Placar,Transmissao,Rotativo,Cronometro,Overlay where Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_placar = Placar.id_placar  and Overlay.id_transmissao = Transmissao.id_transmissao and Transmissao.id_transmissao=" + id_transmissao)
+        const data = await database.query("select * from Placar,Transmissao,Rotativo,Cronometro,Overlay,Logo where Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_placar = Placar.id_placar  and Overlay.id_transmissao = Transmissao.id_transmissao and  Logo.id_transmissao = Transmissao.id_transmissao and Transmissao.id_transmissao=" + id_transmissao)
         return data[0][0]
     },
     getJogo: async function (idjogo) {
@@ -49,6 +49,7 @@ const trasmisaoController = {
                 placar_y: 1,
                 placar_z: 100
             })
+            
             await Cronometro.create({
                 id_placar: placar.id_placar,
                 tipo_cronometro: 0,
@@ -67,6 +68,11 @@ const trasmisaoController = {
             await Overlay.create({
                 overlay_visibilidade: false,
                 fundo:null,
+                id_transmissao: novoTransmisao.id_transmissao
+            })
+            await Logo.create({
+                logo_visibilidade: false,
+                logo:"/pictures/sistem/logo_podium.png",
                 id_transmissao: novoTransmisao.id_transmissao
             })
 
@@ -159,7 +165,20 @@ const trasmisaoController = {
                     case "fundo":
                         await database.query(`UPDATE Overlay SET fundo= "${menssagem.fundo}" WHERE id_overlay = ${menssagem.id_overlay}`)
                         break
-                }
+                    //ROTATIVO
+                    case "logo_visibilidade":
+                        await database.query(`UPDATE Logo SET logo_visibilidade= "${menssagem.logo_visibilidade}" WHERE id_logo = ${menssagem.id_logo}`)
+                        break;
+                    case "logo_x":
+                        await Logo.update({ logo_x: menssagem.logo_x }, { where: { id_logo: menssagem.id_logo } });
+                        break;
+                    case "logo_y":
+                        await Logo.update({ logo_y: menssagem.logo_y }, { where: { id_logo: menssagem.id_logo } });
+                        break;
+                    case "logo_z":
+                        await Logo.update({ logo_z: menssagem.logo_z }, { where: { id_logo: menssagem.id_logo } });
+                        break;
+                    }
                 io.emit(`transmissao_t${menssagem.id_transmissao}`, menssagem)
             })
         })
