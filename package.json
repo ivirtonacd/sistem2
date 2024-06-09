@@ -1,5 +1,5 @@
 {
-  "name": "scorebord_venda",
+  "name": "ivirton",
   "version": "1.0.0",
   "description": "Manager system scorebord",
   "main": "app.js",
@@ -23,5 +23,6 @@
     "sequelize": "^6.37.2",
     "socket.io": "^4.7.5",
     "sqlite3": "^5.1.7"
-  }
+  },
+  "devDependencies": {}
 }

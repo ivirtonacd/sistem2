@@ -34,7 +34,7 @@ app.use('/', router);
 
 
 //inicializar servidor 
-let port = process.env.PORT || 3000;
+let port = process.env.PORT;
 server.listen(port, () => {
 	console.log(`Servidor rodando na porta :${port}`);
 });

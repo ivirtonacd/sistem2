@@ -2,7 +2,7 @@
     <div class="linha">
         <h4>Logo</h4>
         <label class="switch">
-            <input type="checkbox" v-model="transmisao.logo_visibilidade"
+            <input type="checkbox" v-model="transmissao.logo_visibilidade"
                 v-on:change="logo_visibilidade_tx">
             <span class="slider"></span>
         </label>
@@ -23,21 +23,21 @@
                     <div class="coluna">
                         <small>Largura</small>
                         <div class="PB-range-slider-div">
-                            <input type="range" min="0" max="1000" v-model="transmisao.logo_x"
+                            <input type="range" min="0" max="1000" v-model="transmissao.logo_x"
                                 class="PB-range-slider"  v-on:input="logo_x_tx">
-                            <small class="PB-range-slidervalue">{{transmisao.logo_x}}%</small>
+                            <small class="PB-range-slidervalue">{{transmissao.logo_x}}%</small>
                         </div>
                         <small>Altura</small>
                         <div class="PB-range-slider-div">
-                            <input type="range" min="0" max="150" v-model="transmisao.logo_y"
+                            <input type="range" min="0" max="150" v-model="transmissao.logo_y"
                                 class="PB-range-slider" v-on:input="logo_y_tx">
-                            <small class="PB-range-slidervalue">{{transmisao.logo_y}}%</small>
+                            <small class="PB-range-slidervalue">{{transmissao.logo_y}}%</small>
                         </div>
                         <small>Tamanho</small>
                         <div class="PB-range-slider-div">
-                            <input type="range" min="0" max="100" v-model="transmisao.logo_z"
+                            <input type="range" min="0" max="100" v-model="transmissao.logo_z"
                                 class="PB-range-slider" v-on:input="logo_z_tx">
-                            <small class="PB-range-slidervalue">{{transmisao.logo_z}}%</small>
+                            <small class="PB-range-slidervalue">{{transmissao.logo_z}}%</small>
                         </div>
                     </div>
                 </div>

@@ -37,7 +37,7 @@
               <% transmisoes.forEach(transmisao=> { %>
                 <tr>
                   <td>
-                    <a target="_blank" href="/receptor?id_transmissao=<%= transmisao.id_transmissao %>">Receptor  <%= transmisao.nome %></a>
+                    <a target="_blank" href="/transmisao?id=<%= transmisao.id_transmissao %>">Tranmissão  <%= transmisao.nome %></a>
                   </td>
                   <td>
                     <a href="/deletetransmisao?id=<%= transmisao.id_transmissao %>"><i class="fa fa-trash-alt"></i></a>

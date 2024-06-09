@@ -40,156 +40,22 @@ const Cronometro = database.define('Cronometro', {
         type: DataTypes.BLOB,
         allowNull: true
     },
-    id_placar: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: 'Placar',
-            key: 'id_placar',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-        }
-    },
     duracao: {
         type: DataTypes.INTEGER,
         allowNull: true
-    }
+    },
+    id_transmissao: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        references: {
+            model: 'Transmissao',
+            key: 'id_transmissao',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        }
+    },
 }, {
     tableName: 'Cronometro',
-    timestamps: false
-});
-const Jogador = database.define('Jogador', {
-    id_jogador: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nome: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    numero: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    posicao: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    },
-    foto: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    },
-    titular: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    id_equipe: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Time',
-            key: 'id_equipe',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-        }
-    }
-}, {
-    tableName: 'jogador',
-    timestamps: false // Se você não estiver rastreando timestamps de criação/atualização
-});
-const Jogo = database.define('Jogo', {
-    idjogo: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    data: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    id_equipe1: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Time',
-            key: 'id_equipe',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-        }
-    },
-    id_equipe2: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Time',
-            key: 'id_equipe',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-        }
-    },
-    pontos_time1: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    partida: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    pontos_time2: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    idestadio: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: 'Estadio',
-            key: 'idestadio',
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE'
-        }
-    },
-    id_categoria: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: 'Categoria',
-            key: 'id_categoria',
-            onDelete: 'SET NULL',
-            onUpdate: 'SET NULL'
-        }
-    },
-    nome_time1:{
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    nome_time2:{
-        type: DataTypes.STRING,
-        allowNull: true,
-    }
-}, {
-    tableName: 'Jogo',
-    timestamps: false
-});
-const Categoria = database.define('Categoria', {
-    id_categoria: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    sexo:{
-        type:DataTypes.INTEGER,
-        allowNull: true,
-    },
-    nome:{
-        type:DataTypes.STRING,
-        allowNull: true,
-    }
-}, {
-    tableName: 'Categoria',
     timestamps: false
 });
 const Placar = database.define('Placar', {
@@ -197,16 +63,6 @@ const Placar = database.define('Placar', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    idjogo: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-            model: 'Jogo',
-            key: 'idjogo',
-            onDelete: 'SET NULL',
-            onUpdate: 'SET NULL'
-        }
     },
     id_transmissao: {
         type: DataTypes.STRING,
@@ -306,6 +162,26 @@ const Transmissao = database.define('Transmissao', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+    },
+    pontos_time1: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    partida: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    pontos_time2: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    nome_time1: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    nome_time2: {
+        type: DataTypes.STRING,
+        allowNull: true,
     }
 }, {
     tableName: 'Transmissao',
@@ -419,19 +295,13 @@ const Logo = database.define('Logo', {
     tableName: 'Logo',
     timestamps: false
 });
-
 module.exports = {
     Transmissao,
-    Time,
     Rotativo,
     Placar,
-    Jogo,
-    Jogador,
-    Estadio,
     Cronometro,
     Imagem,
     Merchan,
     Overlay,
-    Categoria,
     Logo
 }

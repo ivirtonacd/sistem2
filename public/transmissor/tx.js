@@ -13,24 +13,11 @@ function enviarTransmissaoSocket(id_transmissao, entidade, valor_entidade, atrib
   send["id_transmissao"] = id_transmissao
   socket.emit(`transmissao_t${id_transmissao}`, send);
 }
-function enviarJogoSocket(id_transmissao, entidade, valor_entidade, atributo, valor_atributo) {
-  const send = {
-    id_socket: socket.id,
-    cliente: 'tx',
-    "entidade": "jogo",
-    "id_transmissao": id_transmissao,
-    "tipo": atributo,
-    [entidade]: valor_entidade,
-    [atributo]: valor_atributo
-  }
-  send["id_transmissao"] = id_transmissao
-  socket.emit(`transmissao_t${id_transmissao}`, send);
-}
 const appp = createApp({
   data() {
     return {
       loading: true, // Adicione um estado de loading
-      transmisao: {
+      transmissao: {
         id_placar: 0,
         id_transmissao: 0,
         placar_visibilidade: false,
@@ -55,10 +42,7 @@ const appp = createApp({
         minuto: 0,
         segundo: 0,
         tipo_cronometro: null,
-        overlay_visibilidade: null
-      },
-      jogo: {
-        idjogo: 0,
+        overlay_visibilidade: null,
         nome_time1: "",
         nome_time2: "",
         pontos_time1: null,
@@ -69,138 +53,129 @@ const appp = createApp({
   },
   methods: {
     listen() {
-      socket.on(`transmissao_t${this.transmisao.id_transmissao}`, (menssagem) => {
-        console.log(menssagem)
+      socket.on(`transmissao_t${this.transmissao.id_transmissao}`, (menssagem) => {
+      
         if (menssagem.tipo === "receptor") {
-          this.transmisao = menssagem.transmissao
-          this.transmisao.placar_visibilidade = menssagem.transmissao.placar_visibilidade === "true" ? true : false
-          this.transmisao.rotativo_visibilidade = menssagem.transmissao.rotativo_visibilidade === "true" ? true : false
-          this.transmisao.overlay_visibilidade = menssagem.transmissao.overlay_visibilidade === "true" ? true : false
-          this.transmisao.icone = menssagem.transmissao.icone === "true" ? true : false
-          this.jogo = menssagem.jogo
+          this.transmissao = menssagem.transmissao
+          this.transmissao.placar_visibilidade = menssagem.transmissao.placar_visibilidade === "true" ? true : false
+          this.transmissao.rotativo_visibilidade = menssagem.transmissao.rotativo_visibilidade === "true" ? true : false
+          this.transmissao.overlay_visibilidade = menssagem.transmissao.overlay_visibilidade === "true" ? true : false
+          this.transmissao.icone = menssagem.transmissao.icone === "true" ? true : false
         } else if (socket.id != menssagem.id_socket) {
+          console.log("DADOS RECEIDOS")
+          console.log(menssagem)
           switch (menssagem.entidade) {
             case "transmissao":
-              this.transmisao[menssagem.tipo] = menssagem[menssagem.tipo]
+              this.transmissao[menssagem.tipo] = menssagem[menssagem.tipo]
               if (menssagem.tipo === "minuto") {
-                if (this.transmisao.tipo_cronometro === 0 && this.transmisao.minuto === this.transmisao.duracao) {
-                  this.transmisao.icone = false
-                  enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "icone", this.transmisao.icone)
+                if (this.transmissao.tipo_cronometro === 0 && this.transmissao.minuto === this.transmissao.duracao) {
+                  this.transmissao.icone = false
+                  enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_cronometro", this.transmissao.id_cronometro, "icone", this.transmissao.icone)
                 }
               }
               if (menssagem.tipo === "segundo") {
-                if (this.transmisao.tipo_cronometro === 1 && this.transmisao.minuto === 0 && this.transmisao.segundo === 0) {
-                  this.transmisao.icone = false
-                  enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "icone", this.transmisao.icone)
+                if (this.transmissao.tipo_cronometro === 1 && this.transmissao.minuto === 0 && this.transmissao.segundo === 0) {
+                  this.transmissao.icone = false
+                  enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_cronometro", this.transmissao.id_cronometro, "icone", this.transmissao.icone)
                 }
               }
-              break;
-            case "jogo":
-              this.jogo[menssagem.tipo] = menssagem[menssagem.tipo]
               break;
           }
         }
       });
     },
     jogo_nome1_tx() {
-      enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "nome_time1", this.jogo.nome_time1)
-    }
-    ,
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "nome_time1", this.transmissao.nome_time1)
+    },
     jogo_nome2_tx() {
-      enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "nome_time2", this.jogo.nome_time2)
-    }
-    ,
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "nome_time2", this.transmissao.nome_time2)
+    },
     incrementar_partida() {
-      this.jogo.partida++
-      enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "partida", this.jogo.partida)
+      this.transmissao.partida++
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "partida", this.transmissao.partida)
     },
     decrementar_partida() {
-      if (this.jogo.partida > 1) {
-        this.jogo.partida--
-        enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "partida", this.jogo.partida)
+      if (this.transmissao.partida > 1) {
+        this.transmissao.partida--
+        enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "partida", this.transmissao.partida)
       }
     },
     incrementar_time1() {
-      this.jogo.pontos_time1++
-      enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "pontos_time1", this.jogo.pontos_time1)
+      this.transmissao.pontos_time1++
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "pontos_time1", this.transmissao.pontos_time1)
     },
     incrementar_time2() {
-      this.jogo.pontos_time2++
-      enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "pontos_time2", this.jogo.pontos_time2)
+      this.transmissao.pontos_time2++
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "pontos_time2", this.transmissao.pontos_time2)
     },
     decrementar_time1() {
-      if (this.jogo.pontos_time1 > 0) {
-        this.jogo.pontos_time1--
-        enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "pontos_time1", this.jogo.pontos_time1)
+      if (this.transmissao.pontos_time1 > 0) {
+        this.transmissao.pontos_time1--
+        enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "pontos_time1", this.transmissao.pontos_time1)
       }
     },
     decrementar_time2() {
-      if (this.jogo.pontos_time2 > 0) {
-        this.jogo.pontos_time2--
-        enviarJogoSocket(this.transmisao.id_transmissao, "idjogo", this.transmisao.idjogo, "pontos_time2", this.jogo.pontos_time2)
+      if (this.transmissao.pontos_time2 > 0) {
+        this.transmissao.pontos_time2--
+        enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_transmissao", this.transmissao.id_transmissao, "pontos_time2", this.transmissao.pontos_time2)
       }
     },
     placar_visibilidade_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_placar", this.transmisao.id_placar, "placar_visibilidade", this.transmisao.placar_visibilidade)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_placar", this.transmissao.id_placar, "placar_visibilidade", this.transmissao.placar_visibilidade)
     },
     placar_x_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_placar", this.transmisao.id_placar, "placar_x", this.transmisao.placar_x)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_placar", this.transmissao.id_placar, "placar_x", this.transmissao.placar_x)
     },
     placar_y_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_placar", this.transmisao.id_placar, "placar_y", this.transmisao.placar_y)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_placar", this.transmissao.id_placar, "placar_y", this.transmissao.placar_y)
     },
     placar_z_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_placar", this.transmisao.id_placar, "placar_z", this.transmisao.placar_z)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_placar", this.transmissao.id_placar, "placar_z", this.transmissao.placar_z)
     },
     rotativo_visibilidade_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_rotativo", this.transmisao.id_rotativo, "rotativo_visibilidade", this.transmisao.rotativo_visibilidade)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_rotativo", this.transmissao.id_rotativo, "rotativo_visibilidade", this.transmissao.rotativo_visibilidade)
     },
     rotativo_x_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_rotativo", this.transmisao.id_rotativo, "rotativo_x", this.transmisao.rotativo_x)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_rotativo", this.transmissao.id_rotativo, "rotativo_x", this.transmissao.rotativo_x)
     },
     rotativo_y_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_rotativo", this.transmisao.id_rotativo, "rotativo_y", this.transmisao.rotativo_y)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_rotativo", this.transmissao.id_rotativo, "rotativo_y", this.transmissao.rotativo_y)
     },
     rotativo_z_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_rotativo", this.transmisao.id_rotativo, "rotativo_z", this.transmisao.rotativo_z)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_rotativo", this.transmissao.id_rotativo, "rotativo_z", this.transmissao.rotativo_z)
     },
     cronometro_duracao_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "duracao", this.transmisao.duracao)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_cronometro", this.transmissao.id_cronometro, "duracao", this.transmissao.duracao)
     },
     cronometro_play_tx() {
-      this.transmisao.icone = !this.transmisao.icone
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "icone", this.transmisao.icone)
+      this.transmissao.icone = !this.transmissao.icone
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_cronometro", this.transmissao.id_cronometro, "icone", this.transmissao.icone)
     },
     cronometro_tipo_cronometro_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "tipo_cronometro", parseInt(this.transmisao.tipo_cronometro))
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_cronometro", this.transmissao.id_cronometro, "tipo_cronometro", parseInt(this.transmissao.tipo_cronometro))
     },
     cronometro_stop_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "stop", "stop")
-      this.transmisao.icone = false
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_cronometro", this.transmisao.id_cronometro, "icone", this.transmisao.icone)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_cronometro", this.transmissao.id_cronometro, "stop", "stop")
+      this.transmissao.icone = false
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_cronometro", this.transmissao.id_cronometro, "icone", this.transmissao.icone)
     },
     overlay_visibilidade_tx() {
-
-      // this.transmisao.placar_visibilidade = !this.transmisao.overlay_visibilidade
-      // this.placar_visibilidade_tx()
-      // this.transmisao.rotativo_visibilidade = !this.transmisao.overlay_visibilidade
-      // this.rotativo_visibilidade_tx()
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_overlay", this.transmisao.id_overlay, "overlay_visibilidade", this.transmisao.overlay_visibilidade)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_overlay", this.transmissao.id_overlay, "overlay_visibilidade", this.transmissao.overlay_visibilidade)
     },
     overlay_imagem_tx(fundo) {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_overlay", this.transmisao.id_overlay, "fundo", fundo)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_overlay", this.transmissao.id_overlay, "fundo", fundo)
     },
     logo_visibilidade_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_visibilidade", this.transmisao.logo_visibilidade)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_logo", this.transmissao.id_logo, "logo_visibilidade", this.transmissao.logo_visibilidade)
     },
     logo_x_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_x", this.transmisao.logo_x)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_logo", this.transmissao.id_logo, "logo_x", this.transmissao.logo_x)
     },
     logo_y_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_y", this.transmisao.logo_y)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_logo", this.transmissao.id_logo, "logo_y", this.transmissao.logo_y)
     },
     logo_z_tx() {
-      enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_z", this.transmisao.logo_z)
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_logo", this.transmissao.id_logo, "logo_z", this.transmissao.logo_z)
     },
   },
 }).mount('#app')

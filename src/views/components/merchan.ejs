@@ -2,7 +2,7 @@
     <div class="linha">
         <h4>Merchandising</h4>
         <label class="switch">
-            <input type="checkbox" v-model="transmisao.overlay_visibilidade" v-on:change="overlay_visibilidade_tx">
+            <input type="checkbox" v-model="transmissao.overlay_visibilidade" v-on:change="overlay_visibilidade_tx">
 
             <span class="slider"></span>
         </label>
@@ -30,7 +30,7 @@
                                         v-on:click="overlay_imagem_tx('/pictures/merchan/<%= merchan.url %>')">
                                     <img src="/pictures/merchan/<%= merchan.url %>" class="imagem">
                                     <a
-                                        href="/delete_merchan?id=<%= merchan.id_merchan%>&id_transmissao=<%= transmissao.id_transmissao %>&idjogo=<%= jogo.idjogo %>">
+                                        href="/delete_merchan?id=<%= merchan.id_merchan%>&id_transmissao=<%= transmissao.id_transmissao %>">
                                         <i class="fas fa-trash-alt"></i></a>
                                 </label>
                                 <% }) %>
