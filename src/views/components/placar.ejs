@@ -22,6 +22,7 @@
             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="coluna">
+                        <div class="linha"> <div></div><i class="fas fa-lock"></i></div>
                         <small>Largura</small>
                         <div class="PB-range-slider-div">
                             <input type="range" min="0" max="100" v-model="transmissao.placar_x" class="PB-range-slider"
@@ -56,6 +57,9 @@
                     <div class="linha">
                     </div>
                     <div class="coluna">
+                        <div class="linha"><div></div>
+                        <i class="fas fa-random" aria-hidden="true"></i>
+                    </div>
                         <div class="linha">
                             <input class="form-control" type="text" v-on:change="jogo_nome1_tx"
                                 v-model="transmissao.nome_time1">
@@ -90,7 +94,7 @@
                                 <i v-on:click="incrementar_partida()"
                                     class=" fas fa-solid fa-plus"></i>
                             </div>
-                        </div>
+                        </div>                    
                         <hr>
                         <div class="linha">
                             <h3 style="text-align: center;">

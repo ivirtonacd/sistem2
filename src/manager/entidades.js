@@ -1,9 +1,9 @@
 const socketIo = require('socket.io');
 class Transmissao {
     constructor() {
-        this.id_cronometro = 21;
+        this.jogo = new Jogo()
+        this.cronometro = new Cronometro()
         this.id_transmissao = 24;
-        this.idjogo = null;
     }
 }
 

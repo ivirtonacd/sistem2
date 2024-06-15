@@ -295,6 +295,55 @@ const Logo = database.define('Logo', {
     tableName: 'Logo',
     timestamps: false
 });
+const Link = database.define('Link', {
+    id_Link: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    Link_visibilidade: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    Link: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    id_transmissao: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Transmissao',
+            key: 'id_transmissao',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        }
+    },
+    Link_x: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    Link_y: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    Link_z: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    Link_play: {
+        type: DataTypes.BLOB,
+        allowNull: true,
+    },
+    Link_nome: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    
+}, {
+    tableName: 'Link',
+    timestamps: false
+});
 module.exports = {
     Transmissao,
     Rotativo,
@@ -303,5 +352,6 @@ module.exports = {
     Imagem,
     Merchan,
     Overlay,
-    Logo
+    Logo,
+    Link
 }

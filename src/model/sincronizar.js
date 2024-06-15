@@ -1,4 +1,4 @@
-const { Transmissao, Rotativo, Placar,  Cronometro, Imagem,Overlay, Merchan, Logo } = require("./models");
+const { Transmissao, Rotativo, Placar, Cronometro, Imagem, Overlay, Merchan, Logo, Link } = require("./models");
 Logo.sync()
     .then(() => {
         console.log('Logo IMAGEM sincronizada com sucesso.');
@@ -39,6 +39,13 @@ Overlay.sync()
 Merchan.sync()
     .then(() => {
         console.log('Tabela Merchan sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
+Link.sync()
+    .then(() => {
+        console.log('Tabela link sincronizada com sucesso.');
     })
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);

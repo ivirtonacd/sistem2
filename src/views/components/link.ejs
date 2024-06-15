@@ -1,14 +1,19 @@
 <section class="section card1">
     <div class="linha">
-        <h4>Link</h4>
+        <h4>Video</h4>
         <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" v-model="transmissao.Link_visibilidade"
+            v-on:change="link_visibilidade_tx">
             <span class="slider"></span>
         </label>
     </div>
     <div class="coluna">
         <div class="linha">
-            <input class="form-control" type="text" placeholder="Link">
+            <p>{{transmissao.Link_nome}}</p>
+            <div style="display: flex;">
+                <i v-if="transmissao.Link_play" class="fas fa-pause" v-on:click="link_play_tx"></i>
+                <i v-else="transmissao.Link_play" class="fas fa-play" v-on:click="link_play_tx"></i>
+            </div>
         </div>
     </div>
 </section>

@@ -1,9 +1,9 @@
-const { Transmissao, Rotativo, Placar, Cronometro, Merchan, Overlay, Logo } = require("../model/models")
+const { Transmissao, Rotativo, Placar, Cronometro, Merchan, Overlay, Logo, Link } = require("../model/models")
 
 const database = require("../config/database");
 const trasmisaoController = {
     getTransmisao: async function (id_transmissao) {
-        const data = await database.query("select * from Placar,Transmissao,Rotativo,Cronometro,Overlay,Logo where Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Overlay.id_transmissao = Transmissao.id_transmissao and  Logo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_transmissao = Transmissao.id_transmissao and Transmissao.id_transmissao=" + id_transmissao)
+        const data = await database.query("select * from Placar,Transmissao,Rotativo,Cronometro,Overlay,Logo,Link where Link.id_transmissao = Transmissao.id_transmissao and Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Overlay.id_transmissao = Transmissao.id_transmissao and  Logo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_transmissao = Transmissao.id_transmissao and Transmissao.id_transmissao=" + id_transmissao)
         return data[0][0]
     },
     getJogo: async function (idjogo) {
@@ -14,7 +14,7 @@ const trasmisaoController = {
     receptor: async (req, res) => {
         if (req.query.id_transmissao) {
             const transmissao = await trasmisaoController.getTransmisao(req.query.id_transmissao)
-            res.render('receptor', { transmissao:  transmissao})
+            res.render('receptor', { transmissao: transmissao })
         } else {
             res.render('naoencontrada')
         }
@@ -27,7 +27,6 @@ const trasmisaoController = {
     transmisao: async (req, res) => {
         if (req.query.id) {
             const transmissao = await trasmisaoController.getTransmisao(req.query.id)
-            console.log(transmissao)
             const merchans = await Merchan.findAll()
             res.render('transmisao', { transmissao: transmissao, merchans: merchans });
         }
@@ -74,6 +73,11 @@ const trasmisaoController = {
                 logo: "/pictures/sistem/logo_podium.png",
                 id_transmissao: novoTransmisao.id_transmissao
             })
+            await Link.create({
+                link_visibilidade: false,
+                link: "",
+                id_transmissao: novoTransmisao.id_transmissao
+            })
 
         } catch (error) {
             console.log("erro ao criar tranmissao ", error)
@@ -95,9 +99,9 @@ const trasmisaoController = {
             } else {
                 io.emit(`transmissao_t${menssagem.id_transmissao}`, menssagem)
             }
-            console.log(menssagem)
+            // console.log(menssagem)
             socket.on(`transmissao_t${menssagem.id_transmissao}`, async function (menssagem) {
-                console.log(menssagem)
+                // console.log(menssagem)
                 switch (menssagem.tipo) {
                     //PLACAR
                     case "placar_visibilidade":
@@ -157,6 +161,7 @@ const trasmisaoController = {
                     case "segundo":
                         await Cronometro.update({ segundo: menssagem.segundo }, { where: { id_cronometro: menssagem.id_cronometro } });
                         break
+                    //OVERLAY
                     case "overlay_visibilidade":
                         await database.query(`UPDATE Overlay SET overlay_visibilidade= "${menssagem.overlay_visibilidade}" WHERE id_overlay = ${menssagem.id_overlay}`)
                         break
@@ -176,6 +181,22 @@ const trasmisaoController = {
                     case "logo_z":
                         await Logo.update({ logo_z: menssagem.logo_z }, { where: { id_logo: menssagem.id_logo } });
                         break;
+                    case "Link_visibilidade":
+                        await database.query(`UPDATE Link SET Link_visibilidade= "${menssagem.Link_visibilidade}" WHERE id_Link = ${menssagem.id_Link}`)
+                        break;
+                    case "Link_x":
+                        await Link.update({ Link_x: menssagem.Link_x }, { where: { id_logo: menssagem.id_Link } });
+                        break;
+                    case "Link_y":
+                        await Link.update({ Link_y: menssagem.Link_y }, { where: { id_logo: menssagem.id_Link } });
+                        break;
+                    case "Link_z":
+                        await Link.update({ Link_z: menssagem.Link_z }, { where: { id_logo: menssagem.id_Link } });
+                        break;
+                    case "Link":
+                        await Link.update({ Link: menssagem.Link }, { where: { id_Link: menssagem.id_Link } });
+                        break;
+
                 }
                 io.emit(`transmissao_t${menssagem.id_transmissao}`, menssagem)
             })

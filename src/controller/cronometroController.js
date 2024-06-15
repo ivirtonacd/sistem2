@@ -1,3 +1,5 @@
+const { Cronometro } = require("../model/models");
+
 const cronometroController = {
     ativo: false,
     tipo_cronometro: 1, // Definindo tipo_cronometro como 1 para contagem regressiva
@@ -45,8 +47,8 @@ const cronometroController = {
         }
     },
     contagemRegressiva() {
-        
-        if(!this.ativo){
+
+        if (!this.ativo) {
             this.minuto = this.duracao
         }
         if (this.minuto === 0 && this.segundo === 0) {
@@ -65,7 +67,26 @@ const cronometroController = {
                 console.log(`${this.minuto}:${formattedSegundo}`);
             }
         }
-    }
+    },
+    type_socket: async (menssagem) => {
+        switch (menssagem.tipo) {
+            case "duracao":
+                await Cronometro.update({ duracao: menssagem.duracao }, { where: { id_cronometro: menssagem.id_cronometro } });
+                break;
+            case "tipo_cronometro":
+                await Cronometro.update({ tipo_cronometro: parseInt(menssagem.tipo_cronometro) }, { where: { id_cronometro: menssagem.id_cronometro } });
+                break;
+            case "icone":
+                await database.query(`UPDATE Cronometro SET icone= '${menssagem.icone}' WHERE id_cronometro =${menssagem.id_cronometro}`)
+                break;
+            case "minuto":
+                await Cronometro.update({ minuto: menssagem.minuto }, { where: { id_cronometro: menssagem.id_cronometro } });
+                break
+            case "segundo":
+                await Cronometro.update({ segundo: menssagem.segundo }, { where: { id_cronometro: menssagem.id_cronometro } });
+                break
+        }
+    },
 };
 
 // cronometroController.play();

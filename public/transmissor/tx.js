@@ -177,6 +177,19 @@ const appp = createApp({
     logo_z_tx() {
       enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_logo", this.transmissao.id_logo, "logo_z", this.transmissao.logo_z)
     },
+    link_visibilidade_tx(){
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_Link", this.transmissao.id_Link, "Link_visibilidade", this.transmissao.Link_visibilidade)
+    },
+    link_visibilidade_tx(){
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_Link", this.transmissao.id_Link, "Link_visibilidade", this.transmissao.Link_visibilidade)
+    },
+    link_tx(){
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_Link", this.transmissao.id_Link, "Link", this.transmissao.Link)
+    },
+    link_play_tx() {
+      this.transmissao.Link_play = !this.transmissao.Link_play
+      enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_Link", this.transmissao.id_Link, "Link_play", this.transmissao.Link_play)
+    },
   },
 }).mount('#app')
 setTimeout(() => {
