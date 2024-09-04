@@ -38,12 +38,15 @@
     <script src="transmissor/tx.js"></script>
     <script>
       window.addEventListener("load", () => {
-        appp.transmissao.id_transmissao = "<%= transmissao.id_transmissao %>"
+        appp.transmisao.id_transmissao = "<%= transmissao.id_transmissao %>"
+        appp.transmisao.id_placar = "<%= transmissao.id_placar %>"
+        appp.jogo.idjogo = "<%= jogo.idjogo %>"
         const send = {
           id_socket: socket.id,
           cliente: 'tx',
           tipo: "transmissao",
-          id_transmissao: "<%= transmissao.id_transmissao %>"
+          id_transmissao: "<%= transmissao.id_transmissao %>",
+          idjogo: "<%= jogo.idjogo %>"
         }
         socket.emit("transmissao", send)
         appp.listen()

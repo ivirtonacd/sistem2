@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const { Transmissao, Rotativo, Placar, Cronometro, Imagem, Overlay, Merchan, Logo, Link } = require("./models");
+=======
+const { Estadio, Transmissao, Rotativo, Placar, Jogo, Cronometro, Imagem, Time, Jogador, Overlay, Merchan, Categoria, Logo } = require("./models");
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
 Logo.sync()
     .then(() => {
         console.log('Logo IMAGEM sincronizada com sucesso.');
@@ -29,6 +33,34 @@ Cronometro.sync()
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);
     });
+Jogo.sync()
+    .then(() => {
+        console.log('Tabela Jogo sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
+Jogador.sync()
+    .then(() => {
+        console.log('Tabela Jogador sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
+Time.sync()
+    .then(() => {
+        console.log('Tabela Time sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
+Estadio.sync()
+    .then(() => {
+        console.log('Tabela Estadio sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
 Overlay.sync()
     .then(() => {
         console.log('Tabela Overlay sincronizada com sucesso.');
@@ -43,6 +75,7 @@ Merchan.sync()
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);
     });
+<<<<<<< HEAD
 Link.sync()
     .then(() => {
         console.log('Tabela link sincronizada com sucesso.');
@@ -50,3 +83,12 @@ Link.sync()
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);
     });
+=======
+Categoria.sync()
+    .then(() => {
+        console.log('Tabela Categoria sincronizada com sucesso.');
+    })
+    .catch(error => {
+        console.error('Erro ao sincronizar a tabela:', error);
+    });
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)

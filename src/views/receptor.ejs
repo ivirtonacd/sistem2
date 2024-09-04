@@ -17,54 +17,58 @@
 <body>
     <div id="app">
         <main class="widgets_content">
-            <section v-show="transmissao.placar_visibilidade" class="glass scorebord"
-                :style="{ left: transmissao.placar_x + 'vw', top: transmissao.placar_y + 'vh',zoom: transmissao.placar_z + '%'}">
-                <strong>{{transmissao.partida}}t</strong>
+            <section v-show="transmisao.placar_visibilidade" class="glass scorebord"
+                :style="{ left: transmisao.placar_x + 'vw', top: transmisao.placar_y + 'vh',zoom: transmisao.placar_z + '%'}">
+                <strong >{{jogo.partida}}t</strong>
                 <div class="cronometro">
-                    <strong>{{ transmissao.minuto < 10 ? '0' + transmissao.minuto : transmissao.minuto }}</strong>
-                            <strong>:</strong>
-                            <strong>{{ transmissao.segundo < 10 ? '0' + transmissao.segundo :
-                                    transmissao.segundo}}</strong>
+                    <strong >{{ transmisao.minuto < 10 ? '0' + transmisao.minuto : transmisao.minuto }}</strong>
+                    <strong >:</strong>
+                    <strong >{{ transmisao.segundo < 10 ? '0' + transmisao.segundo : transmisao.segundo}}</strong>
                 </div>
                 |
-                <strong class="name">{{transmissao.nome_time1}}</strong>
-                <strong class="points  glass">{{transmissao.pontos_time1}}</strong>
-                <strong class="points glass">{{transmissao.pontos_time2}}</strong>
-                <strong class="name">{{transmissao.nome_time2}}</strong>
+                <strong class="name">{{jogo.nome_time1}}</strong>
+                <strong class="points  glass">{{jogo.pontos_time1}}</strong>
+                <strong class="points glass">{{jogo.pontos_time2}}</strong>
+                <strong class="name">{{jogo.nome_time2}}</strong>
 
             </section>
-            <section class="rotativo " v-show="transmissao.rotativo_visibilidade"
-                :style="{ left: transmissao.rotativo_x + 'vw', top: transmissao.rotativo_y + 'vh',zoom: transmissao.rotativo_z + '%'}">
+            <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
+                :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
                 <img class="rotativo_img" :key="carrosel.imagemAtual" v-bind:src="carrosel.imagemAtual">
             </section>
 
         </main>
-        <section v-show="transmissao.overlay_visibilidade" class="merchan">
-            <img class="carrosel" v-bind:src="transmissao.fundo">
+        <section v-show="transmisao.overlay_visibilidade" class="merchan">
+            <img class="carrosel" v-bind:src="transmisao.fundo">
         </section>
+<<<<<<< HEAD
 
        
 
         <section v-show="transmissao.logo_visibilidade">
             <img class="logo" v-bind:src="transmissao.logo"
                 :style="{ left: transmissao.logo_x + 'vw', top: transmissao.logo_y + 'vh',zoom: transmissao.logo_z + '%'}">
+=======
+        <section v-show="transmisao.logo_visibilidade">
+            <img class="logo"  v-bind:src="transmisao.logo" :style="{ left: transmisao.logo_x + 'vw', top: transmisao.logo_y + 'vh',zoom: transmisao.logo_z + '%'}">
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
         </section>
-        <section class="rotativo " v-show="transmissao.rotativo_visibilidade"
-            :style="{ left: transmissao.rotativo_x + 'vw', top: transmissao.rotativo_y + 'vh',zoom: transmissao.rotativo_z + '%'}">
+        <section class="rotativo " v-show="transmisao.rotativo_visibilidade"
+            :style="{ left: transmisao.rotativo_x + 'vw', top: transmisao.rotativo_y + 'vh',zoom: transmisao.rotativo_z + '%'}">
             <img class="rotativo_img" :key="carrosel.imagemAtual" v-bind:src="carrosel.imagemAtual">
+        </section>
+        <section v-if="jogo.idjogo">
+            
+        </section>
+        <section v-else="jogo.idjogo" class="merchan">
+            <h1>AGUARDADO CONEXÃO COM O TRANSMISSOR..</h1>
         </section>
     </div>
 </body>
 <script>
     window.addEventListener("load", async () => {
-        appp.transmissao.id_transmissao = "<%= transmissao.id_transmissao %>"
-        const send = {
-            id_socket: socket.id,
-            cliente: 'tx',
-            tipo: "transmissao",
-            id_transmissao: "<%= transmissao.id_transmissao %>"
-        }
-        socket.emit("transmissao", send)
+        appp.transmisao.id_transmissao = "<%= transmissao.id_transmissao %>"
+        appp.transmisao.id_placar = "<%= transmissao.id_placar %>"
         await appp.listen()
         // appp.atualizarCarrosel()
         await appp.proximo()
