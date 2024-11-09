@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { Transmissao, Rotativo, Placar, Cronometro, Imagem, Overlay, Merchan, Logo, Link } = require("./models");
+=======
+const { Estadio, Transmissao, Rotativo, Placar, Jogo, Cronometro, Imagem, Time, Jogador, Overlay, Merchan, Categoria, Logo } = require("./models");
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
 =======
 const { Estadio, Transmissao, Rotativo, Placar, Jogo, Cronometro, Imagem, Time, Jogador, Overlay, Merchan, Categoria, Logo } = require("./models");
 >>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
@@ -76,6 +80,7 @@ Merchan.sync()
         console.error('Erro ao sincronizar a tabela:', error);
     });
 <<<<<<< HEAD
+<<<<<<< HEAD
 Link.sync()
     .then(() => {
         console.log('Tabela link sincronizada com sucesso.');
@@ -84,11 +89,17 @@ Link.sync()
         console.error('Erro ao sincronizar a tabela:', error);
     });
 =======
+=======
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
 Categoria.sync()
     .then(() => {
         console.log('Tabela Categoria sincronizada com sucesso.');
     })
     .catch(error => {
         console.error('Erro ao sincronizar a tabela:', error);
+<<<<<<< HEAD
+    });
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
+=======
     });
 >>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)

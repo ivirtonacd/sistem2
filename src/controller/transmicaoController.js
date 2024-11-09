@@ -1,10 +1,18 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { Transmissao, Rotativo, Placar, Cronometro, Merchan, Overlay, Logo, Link } = require("../model/models")
 
 const database = require("../config/database");
 const trasmisaoController = {
     getTransmisao: async function (id_transmissao) {
         const data = await database.query("select * from Placar,Transmissao,Rotativo,Cronometro,Overlay,Logo,Link where Link.id_transmissao = Transmissao.id_transmissao and Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Overlay.id_transmissao = Transmissao.id_transmissao and  Logo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_transmissao = Transmissao.id_transmissao and Transmissao.id_transmissao=" + id_transmissao)
+=======
+const { Transmissao, Rotativo, Placar, Jogo, Cronometro, Merchan, Overlay, Logo } = require("../model/models")
+const database = require("../config/database");
+const trasmisaoController = {
+    getTransmisao: async function (id_transmissao) {
+        const data = await database.query("select * from Placar,Transmissao,Rotativo,Cronometro,Overlay,Logo where Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_placar = Placar.id_placar  and Overlay.id_transmissao = Transmissao.id_transmissao and  Logo.id_transmissao = Transmissao.id_transmissao and Transmissao.id_transmissao=" + id_transmissao)
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
 =======
 const { Transmissao, Rotativo, Placar, Jogo, Cronometro, Merchan, Overlay, Logo } = require("../model/models")
 const database = require("../config/database");
@@ -21,15 +29,21 @@ const trasmisaoController = {
     receptor: async (req, res) => {
         if (req.query.id_transmissao) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             const transmissao = await trasmisaoController.getTransmisao(req.query.id_transmissao)
             res.render('receptor', { transmissao: transmissao })
 =======
+=======
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
             const transmissao = await database.query(`select Placar.id_placar,Transmissao.nome ,Transmissao.id_transmissao,Rotativo.id_rotativo,placar_visibilidade,placar_x,placar_y,placar_z, rotativo_visibilidade,rotativo_x,rotativo_y,rotativo_z,Cronometro.id_cronometro,Cronometro.tipo_cronometro,Cronometro.duracao,
             Cronometro.icone,Cronometro.minuto,Cronometro.segundo
             from Placar,Transmissao,Rotativo,Cronometro
             where Placar.id_transmissao = Transmissao.id_transmissao and Rotativo.id_transmissao = Transmissao.id_transmissao and Cronometro.id_placar = Placar.id_placar and Transmissao.id_transmissao=${req.query.id_transmissao}`)
             console.log(transmissao[0][0])
             res.render('receptor', { transmissao: transmissao[0][0] })
+<<<<<<< HEAD
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
+=======
 >>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
         } else {
             res.render('naoencontrada')
@@ -87,11 +101,14 @@ const trasmisaoController = {
             await Logo.create({
                 logo_visibilidade: false,
                 logo:"/pictures/sistem/logo_podium.png",
+<<<<<<< HEAD
                 id_transmissao: novoTransmisao.id_transmissao
             })
             await Link.create({
                 link_visibilidade: false,
                 link: "",
+=======
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
                 id_transmissao: novoTransmisao.id_transmissao
             })
 
@@ -199,6 +216,7 @@ const trasmisaoController = {
                         await Logo.update({ logo_z: menssagem.logo_z }, { where: { id_logo: menssagem.id_logo } });
                         break;
 <<<<<<< HEAD
+<<<<<<< HEAD
                     case "Link_visibilidade":
                         await database.query(`UPDATE Link SET Link_visibilidade= "${menssagem.Link_visibilidade}" WHERE id_Link = ${menssagem.id_Link}`)
                         break;
@@ -216,6 +234,9 @@ const trasmisaoController = {
                         break;
 
                 }
+=======
+                    }
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
 =======
                     }
 >>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)

@@ -420,6 +420,7 @@ const Logo = database.define('Logo', {
     timestamps: false
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Link = database.define('Link', {
     id_Link: {
         type: DataTypes.INTEGER,
@@ -472,6 +473,9 @@ const Link = database.define('Link', {
 =======
 
 >>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
+=======
+
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
 module.exports = {
     Transmissao,
     Time,
@@ -485,9 +489,12 @@ module.exports = {
     Merchan,
     Overlay,
 <<<<<<< HEAD
+<<<<<<< HEAD
     Logo,
     Link
 =======
+=======
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
     Categoria,
     Logo
 >>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)

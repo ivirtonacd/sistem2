@@ -201,6 +201,7 @@ const appp = createApp({
     },
     logo_z_tx() {
       enviarTransmissaoSocket(this.transmisao.id_transmissao, "id_logo", this.transmisao.id_logo, "logo_z", this.transmisao.logo_z)
+<<<<<<< HEAD
     },
     link_visibilidade_tx(){
       enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_Link", this.transmissao.id_Link, "Link_visibilidade", this.transmissao.Link_visibilidade)
@@ -214,6 +215,8 @@ const appp = createApp({
     link_play_tx() {
       this.transmissao.Link_play = !this.transmissao.Link_play
       enviarTransmissaoSocket(this.transmissao.id_transmissao, "id_Link", this.transmissao.id_Link, "Link_play", this.transmissao.Link_play)
+=======
+>>>>>>> parent of d110e5f (alteraçoes de sabado 09/06)
     },
   },
 }).mount('#app')
