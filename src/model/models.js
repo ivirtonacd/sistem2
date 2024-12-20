@@ -77,8 +77,6 @@ const Jogador = database.define('Jogador', {
         allowNull: true
     },
     foto: {
-
-        //dsd
         type: DataTypes.TEXT,
         allowNull: true
     },
